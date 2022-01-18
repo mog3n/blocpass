@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { nftPhotoViewerDataState, showMenuState, showNFTPhotoViewerState, worldSceneState } from "../state/atoms";
+import styled from "styled-components";
+import { nftPhotoViewerDataState, showInventoryState, showMenuState, showNFTPhotoViewerState, worldSceneState } from "../state/atoms";
 import { SCENES } from "../state/types";
 import { UIDraggable } from "./UIDraggable";
 
@@ -11,6 +12,7 @@ export const UserInterface = () => {
 
     const [showNFTViewer, setShowNFTViewer] = useRecoilState(showNFTPhotoViewerState);
     const [nftViewerData, setNFTViewerData] = useRecoilState(nftPhotoViewerDataState);
+    const [showInventory, setShowInventory] = useRecoilState(showInventoryState);
 
     useEffect(() => {
         document.addEventListener('keypress', evt => {
@@ -21,6 +23,36 @@ export const UserInterface = () => {
         })
     }, []);
 
+    const InventoryButton = styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        margin: 20px;
+
+        padding: 15px;
+        border-radius: 50%;
+        background-color: rgba(255,255,255,0.2);
+        font-size: 16px;
+        font-family: Sarpanch;
+        font-weight: 700;
+        cursor: pointer;
+
+        transition: 0.2s ease-in-out;
+
+        :hover {
+            background-color: #f700ff7e;
+        }
+
+        :active {
+            margin-bottom: 10px;
+        }
+    `
+    const InventoryImage = styled.img`
+        width: 28px;
+    `
+
     return <>
         <div style={{
             display: 'flex',
@@ -30,14 +62,9 @@ export const UserInterface = () => {
             left: 0,
             zIndex: 999,
         }}>
-            <div style={{
-                margin: 20,
-                color: '#000',
-                backgroundColor: 'rgba(255,255,255,0.3)',
-                borderRadius: '50px',
-                padding: 10,
-            }}>
-            </div>
+            <InventoryButton onClick={() => setShowInventory(true)}>
+                <InventoryImage src="/backpack.png" />
+            </InventoryButton>
         </div>
 
         {/* NFT Viewer */}
@@ -57,6 +84,15 @@ export const UserInterface = () => {
             </UIDraggable>
         </> : <></>}
 
+        {/* Inventory */}
+        { showInventory ? <>
+            <UIDraggable title="Inventory" onClose={() => setShowInventory(false)}>
+                <div>
+                    Hello
+                </div>
+            </UIDraggable>
+        </> : <></>}
+
         {/* Blockpass Logo (Top Right) */}
         <div style={{
             position: 'fixed',
@@ -64,16 +100,17 @@ export const UserInterface = () => {
             right: 0,
             zIndex: 999,
         }}>
-            <img src="/BLOCPASS.png" style={{ height: 30, margin: 10, opacity: 0.2 }} alt="Logo" />
+            <img src="/BLOCPASS.png" style={{ height: 30, margin: 10, opacity: 0.3 }} alt="Logo" />
         </div>
 
         {/* Debug Menu */}
         {showDebugMenu ? <UIDraggable onClose={() => setShowDebugMenu(false)} title="Debug Menu">
-            <div style={{padding: 20, color: '#fff'}}>
-            <h3>Teleport</h3>
-            <button onClick={() => setWorldScene(SCENES.Island)}>Island</button>
-            <button onClick={() => setWorldScene(SCENES.MMOHome)}>MMOHome</button>
+            <div style={{ padding: 20, color: '#fff' }}>
+                <h3>Teleport</h3>
+                <button onClick={() => setWorldScene(SCENES.Island)}>Island</button>
+                <button onClick={() => setWorldScene(SCENES.MMOHome)}>MMOHome</button>
             </div>
         </UIDraggable> : <></>}
     </>
+
 }

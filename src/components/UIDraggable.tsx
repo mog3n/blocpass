@@ -40,6 +40,7 @@ export const UIDraggable = (props: UIDraggableProps) => {
             position: 'fixed',
             top: windowPos[1],
             left: windowPos[0],
+            minWidth: 200,
             display: 'flex',
             flexDirection: 'column',
             zIndex: 999,
@@ -63,6 +64,9 @@ export const UIDraggable = (props: UIDraggableProps) => {
                 setIsDragging(true);
             }}
             onMouseUp={() => {
+                setIsDragging(false);
+            }}
+            onMouseLeave={() => {
                 setIsDragging(false);
             }}
             onMouseMove={(mouseEvt) => {

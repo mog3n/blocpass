@@ -4,6 +4,7 @@ import Stats from 'stats.js';
 import { useSphere } from '@react-three/cannon';
 import { BufferGeometry, Material, Mesh, SpotLight, Vector3 } from 'three';
 import Soldier from './Soldier';
+import { Text } from '@react-three/drei';
 
 interface ControllableProps {
   keyInputs: { [key: string]: boolean }
@@ -82,8 +83,6 @@ export const Controllable = (props: ControllableProps) => {
     curPosVector.lerp(playerPosVector, CAMERA_FOLLOW_SPEED);
     camera.position.setX(curPosVector.x);
     camera.position.x = curPosVector.x;
-    camera.position.y = 5;
-    camera.position.z = 13;
 
     // look at player at the same rate
     const directionVector: Vector3 = new Vector3(0, 0, 0);

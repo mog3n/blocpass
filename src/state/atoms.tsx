@@ -4,7 +4,7 @@ import { SCENES } from "./types";
 
 export const worldSceneState = atom({
     key: 'worldSceneState',
-    default: SCENES.MMOHome
+    default: SCENES.Island
 })
 
 export const showMenuState = atom({
@@ -20,4 +20,9 @@ export const showNFTPhotoViewerState = atom({
 export const nftPhotoViewerDataState = atom<NFTPhoto>({
     key: 'nftPhotoViewerDataState',
     default: { photoUrl: '' }
+})
+
+export const showInventoryState = atom({
+    key: 'showInventoryState',
+    default: false
 })

@@ -1,5 +1,5 @@
 import { Physics } from "@react-three/cannon"
-import { OrbitControls, Sky, Stars, TransformControls } from "@react-three/drei"
+import { Stars } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { Controllable } from "../character/Controllable"
 import { IslandAsset } from "../objects/Island"
@@ -47,7 +47,7 @@ export const MMOHomeScene = (props: MMOHomeSceneProps) => {
             {/* <OrbitControls /> */}
 
             <fog near={0}  far={10}/>
-            <IslandAsset position={[0, 5, -20]}/>
+            <IslandAsset position={[0, 10, -20]}/>
 
             {generateGround(50, 0, 3)}
 
