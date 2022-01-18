@@ -38,8 +38,13 @@ export const UIDraggable = (props: UIDraggableProps) => {
         ref={ref => windowRef.current = ref}
         style={{
             position: 'fixed',
-            top: windowPos[1],
-            left: windowPos[0],
+            // top: windowPos[1],
+            // left: windowPos[0],
+
+            top: 0,
+            left: 0,
+            transform: `translate(${windowPos[0]}px, ${windowPos[1]}px)`,
+
             minWidth: 200,
             display: 'flex',
             flexDirection: 'column',
@@ -52,6 +57,7 @@ export const UIDraggable = (props: UIDraggableProps) => {
 
             ...props.windowProps
         }}
+
     >
         <div
             style={{
@@ -60,24 +66,26 @@ export const UIDraggable = (props: UIDraggableProps) => {
                 display: 'flex',
                 justifyContent: 'space-between',
             }}
-            onMouseDown={(mouseEvt) => {
+
+            onMouseDown={() => {
                 setIsDragging(true);
             }}
             onMouseUp={() => {
                 setIsDragging(false);
             }}
-            onMouseLeave={() => {
+            onMouseLeave={(mouseEvt) => {
+                if (isDragging && windowRef.current) {
+                    const x = mouseEvt.clientX - windowRef.current.clientWidth / 2;
+                    const y = mouseEvt.clientY - 20;
+                    setWindowPos([x, y]);
+                }
                 setIsDragging(false);
             }}
             onMouseMove={(mouseEvt) => {
                 if (isDragging && windowRef.current) {
                     const x = mouseEvt.clientX - windowRef.current.clientWidth / 2;
                     const y = mouseEvt.clientY - 20;
-
-                    const DRAG_THRESHOLD = 3; // in pixels
-                    if (Math.abs(x - windowPos[0]) > DRAG_THRESHOLD && Math.abs(y - windowPos[1]) > DRAG_THRESHOLD) {
-                        setWindowPos([x, y]);
-                    }
+                    setWindowPos([x, y]);
                 }
             }}
         >
