@@ -9,9 +9,9 @@ import { IslandScene } from './scenes/IslandScene';
 import { RecoilRoot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilState } from 'recoil';
 import { showMenuState, worldSceneState } from './state/atoms';
 import { SCENES } from './state/types';
-import { Menu } from './components/DebugMenu';
+import { Menu } from './UI/DebugMenu';
 import { MMOHomeScene } from './scenes/MMOHomeScene';
-import { UserInterface } from './components/UserInterface';
+import { UserInterface } from './UI/UserInterface';
 // import { OrbitControls } from '@react-three/drei';
 
 // import transparentTexture from './../public/transparent.png';

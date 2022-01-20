@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { nftPhotoViewerDataState, showInventoryState, showMenuState, showNFTPhotoViewerState, worldSceneState } from "../state/atoms";
 import { SCENES } from "../state/types";
+import { Inventory } from "./MainMenu/MainMenu";
 import { UIDraggable } from "./UIDraggable";
 
 export const UserInterface = () => {
@@ -51,6 +52,7 @@ export const UserInterface = () => {
     `
     const InventoryImage = styled.img`
         width: 28px;
+        filter: brightness(10000%);
     `
 
     return <>
@@ -59,11 +61,11 @@ export const UserInterface = () => {
             flexDirection: 'column',
             position: 'fixed',
             bottom: 0,
-            left: 0,
+            right: 0,
             zIndex: 999,
         }}>
             <InventoryButton onClick={() => setShowInventory(true)}>
-                <InventoryImage src="/backpack.png" />
+                <InventoryImage src="/icons/island.svg" />
             </InventoryButton>
         </div>
 
@@ -86,10 +88,8 @@ export const UserInterface = () => {
 
         {/* Inventory */}
         { showInventory ? <>
-            <UIDraggable title="Inventory" onClose={() => setShowInventory(false)}>
-                <div>
-                    Hello
-                </div>
+            <UIDraggable title="BlocPass" onClose={() => setShowInventory(false)}>
+                <Inventory />
             </UIDraggable>
         </> : <></>}
 
