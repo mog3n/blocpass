@@ -31,15 +31,15 @@ export const UIDraggable = (props: UIDraggableProps) => {
     ]);
 
     const [isDragging, setIsDragging] = useState(false);
-    const [dragOffset, setDragOffset] = useState([0,0]);
+    const [dragOffset, setDragOffset] = useState([0, 0]);
     const [showWindow, setShowWindow] = useState(false);
     const windowRef = useRef<HTMLDivElement | null>();
 
     useEffect(() => {
         // center window on spawn
         if (windowRef.current) {
-            const x = window.innerWidth/2 - windowRef.current.clientWidth/2;
-            const y = window.innerHeight/2 - windowRef.current.clientHeight/2;
+            const x = window.innerWidth / 2 - windowRef.current.clientWidth / 2;
+            const y = window.innerHeight / 2 - windowRef.current.clientHeight / 2;
             setWindowPos([x, y]);
             setShowWindow(true);
         }
@@ -57,7 +57,7 @@ export const UIDraggable = (props: UIDraggableProps) => {
             transform: `translate(${windowPos[0]}px, ${windowPos[1]}px)`,
 
             minWidth: 200,
-            visibility: showWindow ? 'visible' : 'hidden',
+            opacity: showWindow ? 1 : 0,
             flexDirection: 'column',
             zIndex: 999,
             backgroundColor: '#212121', // isDragging ? '#2051ff' : '#212121',
@@ -84,11 +84,11 @@ export const UIDraggable = (props: UIDraggableProps) => {
                 if (windowRef.current) {
                     const windowX = windowRef.current.getBoundingClientRect().x;
                     const windowY = windowRef.current.getBoundingClientRect().y;
-                    
+
                     const mouseX = mouseEvt.clientX;
                     const mouseY = mouseEvt.clientY;
 
-                    setDragOffset([mouseX-windowX, mouseY-windowY]);
+                    setDragOffset([mouseX - windowX, mouseY - windowY]);
                 }
             }}
             onMouseUp={() => {
