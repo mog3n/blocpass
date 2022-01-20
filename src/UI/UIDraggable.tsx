@@ -26,11 +26,13 @@ const CloseButton = styled.img`
 export const UIDraggable = (props: UIDraggableProps) => {
 
     const [windowPos, setWindowPos] = useState([
-        props.initPos?.x || window.innerWidth / 2,
-        props.initPos?.y || window.innerHeight / 2
+        props.initPos?.x || 0,
+        props.initPos?.y || 0
     ]);
+
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState([0,0]);
+    const [showWindow, setShowWindow] = useState(false);
     const windowRef = useRef<HTMLDivElement | null>();
 
     useEffect(() => {
@@ -39,6 +41,7 @@ export const UIDraggable = (props: UIDraggableProps) => {
             const x = window.innerWidth/2 - windowRef.current.clientWidth/2;
             const y = window.innerHeight/2 - windowRef.current.clientHeight/2;
             setWindowPos([x, y]);
+            setShowWindow(true);
         }
     }, [windowRef])
 
@@ -54,14 +57,14 @@ export const UIDraggable = (props: UIDraggableProps) => {
             transform: `translate(${windowPos[0]}px, ${windowPos[1]}px)`,
 
             minWidth: 200,
-            display: 'flex',
+            visibility: showWindow ? 'visible' : 'hidden',
             flexDirection: 'column',
             zIndex: 999,
-            backgroundColor: isDragging ? '#2051ff' : 'rgba(255,255,255,0.3)',
+            backgroundColor: '#212121', // isDragging ? '#2051ff' : '#212121',
             userSelect: 'none',
             border: '1px solid rgba(255,255,255,0.3)',
             padding: 2,
-            borderRadius: 3,
+            borderRadius: 10,
 
             ...props.windowProps
         }}
@@ -73,6 +76,7 @@ export const UIDraggable = (props: UIDraggableProps) => {
                 flex: 1,
                 display: 'flex',
                 justifyContent: 'space-between',
+                alignItems: 'center',
             }}
 
             onMouseDown={(mouseEvt) => {

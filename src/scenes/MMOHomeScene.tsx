@@ -17,10 +17,10 @@ const generateGround = (width: number, height: number, depth: number) => {
 
     for (let z = 0; z<depth; z++) {
         for (let x=0; x<width; x++) {
-            returnObject.push(<GrassBlock position={[x-Math.floor(width/2), 0, z-(Math.floor(depth/2))]} />);
+            returnObject.push(<GrassBlock key={`${x}-${z}`} position={[x-Math.floor(width/2), 0, z-(Math.floor(depth/2))]} />);
     
             for (let y=0; y<height; y++) {
-                returnObject.push(<DirtBlock position={[x-Math.floor(width/2), -y-1, z-(Math.floor(depth/2))]} />);
+                returnObject.push(<DirtBlock key={`${x}-${y}-${z}`} position={[x-Math.floor(width/2), -y-1, z-(Math.floor(depth/2))]} />);
             }
         }
     }

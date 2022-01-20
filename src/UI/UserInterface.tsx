@@ -4,7 +4,40 @@ import styled from "styled-components";
 import { nftPhotoViewerDataState, showInventoryState, showMenuState, showNFTPhotoViewerState, worldSceneState } from "../state/atoms";
 import { SCENES } from "../state/types";
 import { Inventory } from "./MainMenu/MainMenu";
+import { NFTViewer } from "./NFTViewer";
 import { UIDraggable } from "./UIDraggable";
+
+
+const InventoryButton = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+
+margin: 20px;
+
+padding: 15px;
+border-radius: 50%;
+background-color: rgba(255,255,255,0.2);
+font-size: 16px;
+font-family: Sarpanch;
+font-weight: 700;
+cursor: pointer;
+
+transition: 0.1s ease-in-out;
+
+:hover {
+    background-color: #446DFF;
+}
+
+:active {
+    margin-bottom: 10px;
+}
+`
+const InventoryImage = styled.img`
+width: 28px;
+filter: brightness(10000%);
+`
 
 export const UserInterface = () => {
 
@@ -12,7 +45,6 @@ export const UserInterface = () => {
     const [worldScene, setWorldScene] = useRecoilState(worldSceneState);
 
     const [showNFTViewer, setShowNFTViewer] = useRecoilState(showNFTPhotoViewerState);
-    const [nftViewerData, setNFTViewerData] = useRecoilState(nftPhotoViewerDataState);
     const [showInventory, setShowInventory] = useRecoilState(showInventoryState);
 
     useEffect(() => {
@@ -24,36 +56,6 @@ export const UserInterface = () => {
         })
     }, []);
 
-    const InventoryButton = styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-
-        margin: 20px;
-
-        padding: 15px;
-        border-radius: 50%;
-        background-color: rgba(255,255,255,0.2);
-        font-size: 16px;
-        font-family: Sarpanch;
-        font-weight: 700;
-        cursor: pointer;
-
-        transition: 0.2s ease-in-out;
-
-        :hover {
-            background-color: #f700ff7e;
-        }
-
-        :active {
-            margin-bottom: 10px;
-        }
-    `
-    const InventoryImage = styled.img`
-        width: 28px;
-        filter: brightness(10000%);
-    `
 
     return <>
         <div style={{
@@ -72,36 +74,26 @@ export const UserInterface = () => {
         {/* NFT Viewer */}
         {showNFTViewer ? <>
             <UIDraggable title="NFT" onClose={() => setShowNFTViewer(false)}>
-                <div style={{ border: '20px solid #000' }}>
-                    <img src={nftViewerData.photoUrl} style={{
-                        border: '10px solid #fff',
-                        backgroundColor: '#fff',
-                        imageRendering: 'pixelated',
-                        maxWidth: '300px',
-                        userSelect: 'none',
-                        MozUserSelect: 'none',
-                        WebkitUserSelect: 'none',
-                    }} alt="NFT" />
-                </div>
+                <NFTViewer />
             </UIDraggable>
         </> : <></>}
 
         {/* Inventory */}
-        { showInventory ? <>
+        {showInventory ? <>
             <UIDraggable title="BlocPass" onClose={() => setShowInventory(false)}>
                 <Inventory />
             </UIDraggable>
         </> : <></>}
 
         {/* Blockpass Logo (Top Right) */}
-        <div style={{
+        {/* <div style={{
             position: 'fixed',
             top: 0,
             right: 0,
             zIndex: 999,
         }}>
             <img src="/BLOCPASS.png" style={{ height: 30, margin: 10, opacity: 0.3 }} alt="Logo" />
-        </div>
+        </div> */}
 
         {/* Debug Menu */}
         {showDebugMenu ? <UIDraggable onClose={() => setShowDebugMenu(false)} title="Debug Menu">
